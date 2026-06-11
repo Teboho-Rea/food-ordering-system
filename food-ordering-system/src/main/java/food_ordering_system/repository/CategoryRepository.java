@@ -1,0 +1,10 @@
+package food_ordering_system.repository;
+
+import food_ordering_system.entity.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+// Repository is responsible for communicating with the database.
+@Repository
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+}
