@@ -72,3 +72,12 @@ This includes settings for security, CORS, Swagger/OpenAPI, custom beans, and ot
 Includes custom error classes and error-handling logic. 
 It helps the application return clear error messages when something goes wrong, like “Customer not found.”
 
+## Endpoints
+
+| Method | URL | Body |
+|--------|-----|------|
+| POST | /api/categories | {"name": ""} |
+| GET | /api/categories | - |
+| GET | /api/categories/{id} | - |
+| PUT | /api/categories/{id} | {"name": ""} |
+| DELETE | /api/categories/{id} | - |
