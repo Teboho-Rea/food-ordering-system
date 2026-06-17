@@ -10,7 +10,7 @@ import java.util.List;
 
 // Controller handles HTTP requests and returns responses to the client.
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
