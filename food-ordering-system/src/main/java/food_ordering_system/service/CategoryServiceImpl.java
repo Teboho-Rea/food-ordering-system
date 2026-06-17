@@ -28,8 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getCategoryById(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
-
+                .orElseThrow(() -> new CategoryNotFoundException(
+                        "Category not found with id: " + id));
         return mapToDto(category);
     }
 
@@ -37,29 +37,27 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto addCategory(CategoryDto dto) {
         Category category = new Category();
         category.setName(dto.getName());
-
-        Category savedCategory = categoryRepository.save(category);
-
-        return mapToDto(savedCategory);
+        category.setDescription(dto.getDescription());
+        Category saved = categoryRepository.save(category);
+        return mapToDto(saved);
     }
 
     @Override
     public CategoryDto updateCategory(Long id, CategoryDto dto) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
-
+                .orElseThrow(() -> new CategoryNotFoundException(
+                        "Category not found with id: " + id));
         category.setName(dto.getName());
-
-        Category updatedCategory = categoryRepository.save(category);
-
-        return mapToDto(updatedCategory);
+        category.setDescription(dto.getDescription());
+        Category updated = categoryRepository.save(category);
+        return mapToDto(updated);
     }
 
     @Override
     public void deleteCategory(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
-
+                .orElseThrow(() -> new CategoryNotFoundException(
+                        "Category not found with id: " + id));
         categoryRepository.delete(category);
     }
 
@@ -67,6 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryDto dto = new CategoryDto();
         dto.setId(category.getId());
         dto.setName(category.getName());
+        dto.setDescription(category.getDescription());
         return dto;
     }
 }
