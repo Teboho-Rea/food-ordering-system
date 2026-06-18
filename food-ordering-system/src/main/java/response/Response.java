@@ -1,4 +1,4 @@
-package response;
+package food_ordering_system.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -42,3 +42,4 @@ public class Response<T> {
                 .build();
     }
 }
+
