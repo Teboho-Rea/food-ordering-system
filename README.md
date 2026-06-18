@@ -72,3 +72,45 @@ This includes settings for security, CORS, Swagger/OpenAPI, custom beans, and ot
 Includes custom error classes and error-handling logic. 
 It helps the application return clear error messages when something goes wrong, like “Customer not found.”
 
+## API Response Format
+
+Every endpoint returns a consistent `Response<T>` wrapper containing
+a status code, message, data, and timestamp.
+
+### Success response example
+
+```json
+{
+  "statusCode": 200,
+  "message": "Category retrieved",
+  "data": {
+    "id": 11,
+    "name": "Chicken",
+    "description": "Chicken alfredo with pasta"
+  },
+  "timestamp": "2026-06-18T23:10:11.7184281"
+}
+```
+
+### Success response with no data (e.g. DELETE)
+
+```json
+{
+  "statusCode": 200,
+  "message": "Category deleted",
+  "timestamp": "2026-06-18T23:07:37.4362829"
+}
+```
+
+The `data` field is omitted entirely when it has no value, using
+`@JsonInclude(JsonInclude.Include.NON_NULL)`.
+
+### Error response example
+
+```json
+{
+  "statusCode": 404,
+  "message": "Category not found with id: 1",
+  "timestamp": "2026-06-18T23:08:39.0224635"
+}
+```

@@ -8,10 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-// Handles all incoming HTTP requests for the Category resource.
-// Delegates business logic to CategoryService.
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
@@ -22,7 +21,6 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    // GET /api/categories
     @GetMapping
     public ResponseEntity<Response<List<CategoryDto>>> getAllCategories() {
         List<CategoryDto> categories = categoryService.getAllCategories();
@@ -31,7 +29,6 @@ public class CategoryController {
         );
     }
 
-    // GET /api/categories/{id}
     @GetMapping("/{id}")
     public ResponseEntity<Response<CategoryDto>> getCategoryById(
             @PathVariable Long id) {
@@ -41,7 +38,6 @@ public class CategoryController {
         );
     }
 
-    // POST /api/categories
     @PostMapping
     public ResponseEntity<Response<CategoryDto>> addCategory(
             @RequestBody @Valid CategoryDto dto) {
@@ -51,12 +47,11 @@ public class CategoryController {
                         .statusCode(201)
                         .message("Category created")
                         .data(created)
-                        .timestamp(java.time.LocalDateTime.now())
+                        .timestamp(LocalDateTime.now())
                         .build()
         );
     }
 
-    // PUT /api/categories/{id}
     @PutMapping("/{id}")
     public ResponseEntity<Response<CategoryDto>> updateCategory(
             @PathVariable Long id,
@@ -67,7 +62,6 @@ public class CategoryController {
         );
     }
 
-    // DELETE /api/categories/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Response<Void>> deleteCategory(
             @PathVariable Long id) {
