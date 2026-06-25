@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/menu")
 @RequiredArgsConstructor
@@ -55,5 +57,15 @@ public class MenuController {
     public ResponseEntity<Response<Void>> delete(
             @PathVariable Long id) {
         return ResponseEntity.ok(menuService.deleteMenu(id));
+    }
+    @GetMapping
+    public ResponseEntity<Response<List<MenuDto>>> all() {
+        return ResponseEntity.ok(menuService.getAllMenus());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<MenuDto>> byId(
+            @PathVariable Long id) {
+        return ResponseEntity.ok(menuService.getMenuById(id));
     }
 }

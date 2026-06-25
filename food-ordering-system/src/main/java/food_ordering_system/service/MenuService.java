@@ -13,4 +13,6 @@ public interface MenuService {
     Response<MenuDto> getMenuById(Long id);
     Response<MenuDto> updateMenu(Long id, MenuDto dto);
     Response<Void> deleteMenu(Long id);
+    Response<List<MenuDto>> getAllMenus();
+    Response<MenuDto> getMenuById(Long id);
 }

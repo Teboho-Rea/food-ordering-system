@@ -21,6 +21,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import food_ordering_system.repository.CategoryRepository;
+import food_ordering_system.repository.MenuRepository;
+import food_ordering_system.response.Response;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+// Contains all business logic for Menu operations.
+// Converts between Menu entities and MenuDto objects.
 @Service
 @RequiredArgsConstructor
 public class MenuServiceImpl implements MenuService {
@@ -128,6 +138,33 @@ public class MenuServiceImpl implements MenuService {
     }
 
     // Converts a Menu entity to a MenuDto
+
+        Menu menu = mapToEntity(dto, category);
+        Menu savedMenu = menuRepository.save(menu);
+
+        return Response.success("Menu created", mapToDto(savedMenu));
+    }
+
+    @Override
+    public Response<List<MenuDto>> getAllMenus() {
+        List<MenuDto> menus = menuRepository.findAll()
+                .stream()
+                .map(this::mapToDto)
+                .toList();
+
+        return Response.success("Menus retrieved", menus);
+    }
+
+    @Override
+    public Response<MenuDto> getMenuById(Long id) {
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException(
+                        "Menu not found with id: " + id));
+
+        return Response.success("Menu retrieved", mapToDto(menu));
+    }
+
+    // Converts a Menu entity into a MenuDto for the API response
     private MenuDto mapToDto(Menu menu) {
         MenuDto dto = new MenuDto();
         dto.setId(menu.getId());
@@ -143,6 +180,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     // Converts an incoming MenuDto and resolved Category to a Menu entity
+    // Converts an incoming MenuDto plus its resolved Category into a Menu entity
     private Menu mapToEntity(MenuDto dto, Category category) {
         return Menu.builder()
                 .name(dto.getName())

@@ -22,6 +22,7 @@ public class MenuDto {
     @NotNull(message = "Price is required")
     @DecimalMin(value = "0.0", inclusive = true,
             message = "Price must not be negative")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Price must not be negative")
     private BigDecimal price;
 
     private String imageUrl;
@@ -30,4 +31,7 @@ public class MenuDto {
     private Long categoryId;
 
     private String categoryName;
+    private Long categoryId;     // input only — used to find the Category
+
+    private String categoryName; // output only — shown to the client
 }
