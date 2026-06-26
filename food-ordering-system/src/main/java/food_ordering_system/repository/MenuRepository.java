@@ -8,8 +8,4 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 // JpaSpecificationExecutor enables dynamic filtering with Specifications.
 public interface MenuRepository extends JpaRepository<Menu, Long>,
         JpaSpecificationExecutor<Menu> {
-
-// Repository for the Menu entity.
-// JpaRepository provides save, findById, findAll and delete out of the box.
-public interface MenuRepository extends JpaRepository<Menu, Long> {
 }

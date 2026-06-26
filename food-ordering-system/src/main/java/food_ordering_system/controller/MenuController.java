@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/menu")
 @RequiredArgsConstructor
@@ -27,7 +25,7 @@ public class MenuController {
 
     // GET /api/menu — supports categoryId, search, page, size, sort
     @GetMapping
-    public ResponseEntity<Response<PageResponse<MenuDto>>> getAll(
+    public ResponseEntity<Response<PageResponse<MenuDto>>> all(
             @RequestParam(required = false) Long categoryId,
             @RequestParam(required = false) String search,
             @RequestParam(defaultValue = "0") int page,
@@ -39,7 +37,7 @@ public class MenuController {
 
     // GET /api/menu/{id}
     @GetMapping("/{id}")
-    public ResponseEntity<Response<MenuDto>> getById(
+    public ResponseEntity<Response<MenuDto>> byId(
             @PathVariable Long id) {
         return ResponseEntity.ok(menuService.getMenuById(id));
     }
@@ -57,15 +55,5 @@ public class MenuController {
     public ResponseEntity<Response<Void>> delete(
             @PathVariable Long id) {
         return ResponseEntity.ok(menuService.deleteMenu(id));
-    }
-    @GetMapping
-    public ResponseEntity<Response<List<MenuDto>>> all() {
-        return ResponseEntity.ok(menuService.getAllMenus());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Response<MenuDto>> byId(
-            @PathVariable Long id) {
-        return ResponseEntity.ok(menuService.getMenuById(id));
     }
 }

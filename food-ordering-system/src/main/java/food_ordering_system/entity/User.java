@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
-// Represents an authenticated user of the system.
 @Entity
 @Table(name = "users")
 @Data

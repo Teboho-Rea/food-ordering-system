@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Represents a role in the system e.g. ADMIN or CUSTOMER.
 @Entity
 @Table(name = "roles")
 @Data
