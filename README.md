@@ -158,3 +158,34 @@ GET /api/menu?categoryId=1&search=burger&page=0&size=5&sort=price,asc
   "timestamp": "2026-06-23T09:00:00"
 }
 ```
+## Authentication
+
+| Method | Path | Access |
+|--------|------|--------|
+| POST | /api/auth/register | Public |
+| POST | /api/auth/login | Public |
+
+## Security Rules
+
+| Access Level | Endpoints |
+|---|---|
+| Public | GET /api/categories/**, GET /api/menu/**, POST /api/auth/** |
+| ADMIN only | POST/PUT/DELETE /api/categories/**, POST/PUT/DELETE /api/menu/** |
+| Authenticated | Everything else |
+
+## Promoting a user to ADMIN
+
+```sql
+-- Find your user id and the ADMIN role id first
+SELECT id, email FROM users;
+SELECT id, name FROM roles;
+
+-- Then insert (replace 1 and 1 with your actual ids)
+INSERT INTO users_roles (user_id, role_id) VALUES (1, 1);
+```
+
+## How to authenticate in Postman
+
+1. Call POST /api/auth/login with your email and password
+2. Copy the token value from the response
+3. Paste it into your Postman environment variable called authToken

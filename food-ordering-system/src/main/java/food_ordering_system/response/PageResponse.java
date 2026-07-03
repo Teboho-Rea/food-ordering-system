@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-// Wraps a paginated list result with metadata so the frontend
-// knows how many total pages and items exist.
 @Data
 @Builder
 @AllArgsConstructor
