@@ -4,8 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// DTO means Data Transfer Object.
-// It is used to send category data without exposing the full database entity.
+// DTO for Category.
 @Data
 public class CategoryDto {
 
