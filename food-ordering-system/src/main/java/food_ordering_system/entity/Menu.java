@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 // Represents the menus table in the database.
-// Each menu item belongs to one Category.
-// This class represents the menus table in the database.
-// Each menu item belongs to one category.
 @Entity
 @Table(name = "menus")
 @Data
