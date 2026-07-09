@@ -78,4 +78,26 @@ public class CategoryController {
                 Response.success("Category deleted", null)
         );
     }
+
+    @GetMapping("/{id}")
+    public CategoryDto getCategoryById(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDto> addCategory(@RequestBody @Valid CategoryDto dto) {
+        CategoryDto savedCategory = categoryService.addCategory(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
+    }
+
+    @PutMapping("/{id}")
+    public CategoryDto updateCategory(@PathVariable Long id, @RequestBody @Valid CategoryDto dto) {
+        return categoryService.updateCategory(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.noContent().build();
+    }
 }
