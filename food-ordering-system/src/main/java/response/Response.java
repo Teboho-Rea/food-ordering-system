@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-// This is a generic response wrapper.
-// Every API endpoint returns this class so the frontend
-// always receives a consistent JSON structure.
+// Generic response wrapper used by all endpoints.
 @Data
 @Builder
 @AllArgsConstructor
@@ -23,7 +21,6 @@ public class Response<T> {
     private T data;
     private LocalDateTime timestamp;
 
-    // Returns a successful response with data
     public static <T> Response<T> success(String message, T data) {
         return Response.<T>builder()
                 .statusCode(200)
@@ -33,7 +30,6 @@ public class Response<T> {
                 .build();
     }
 
-    // Returns an error response without data
     public static <T> Response<T> error(int code, String message) {
         return Response.<T>builder()
                 .statusCode(code)
@@ -42,4 +38,3 @@ public class Response<T> {
                 .build();
     }
 }
-

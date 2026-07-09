@@ -81,3 +81,89 @@ It helps the application return clear error messages when something goes wrong, 
 | GET | /api/categories/{id} | - |
 | PUT | /api/categories/{id} | {"name": ""} |
 | DELETE | /api/categories/{id} | - |
+## API Response Format
+
+Every endpoint returns a consistent `Response<T>` wrapper containing
+a status code, message, data, and timestamp.
+
+### Success response example
+
+```json
+{
+  "statusCode": 200,
+  "message": "Category retrieved",
+  "data": {
+    "id": 11,
+    "name": "Chicken",
+    "description": "Chicken alfredo with pasta"
+  },
+  "timestamp": "2026-06-18T23:10:11.7184281"
+}
+```
+
+### Success response with no data (e.g. DELETE)
+
+```json
+{
+  "statusCode": 200,
+  "message": "Category deleted",
+  "timestamp": "2026-06-18T23:07:37.4362829"
+}
+```
+
+The `data` field is omitted entirely when it has no value, using
+`@JsonInclude(JsonInclude.Include.NON_NULL)`.
+
+### Error response example
+
+```json
+{
+  "statusCode": 404,
+  "message": "Category not found with id: 1",
+  "timestamp": "2026-06-18T23:08:39.0224635"
+}
+```
+## Menu Endpoints
+
+| Method | Path | Description | Query Params |
+|--------|------|-------------|--------------|
+| POST | /api/menu | Create a menu item | — |
+| GET | /api/menu | List all menus | categoryId, search, page, size, sort |
+| GET | /api/menu/{id} | Get one menu item | — |
+| PUT | /api/menu/{id} | Update a menu item | — |
+| DELETE | /api/menu/{id} | Delete a menu item | — |
+
+### Example filtered request
+
+```
+GET /api/menu?categoryId=1&search=burger&page=0&size=5&sort=price,asc
+```
+
+### Example paginated response
+
+```json
+{
+  "statusCode": 200,
+  "message": "Menus retrieved",
+  "data": {
+    "content": [
+      {
+        "id": 1,
+        "name": "Cheese Burger",
+        "description": "Classic beef patty with cheese",
+        "price": 49.99,
+        "imageUrl": "https://placehold.co/300",
+        "categoryId": 1,
+        "categoryName": "Fast Food"
+      }
+    ],
+    "totalElements": 4,
+    "totalPages": 1,
+    "number": 0,
+    "size": 5,
+    "first": true,
+    "last": true
+  },
+  "timestamp": "2026-06-23T09:00:00"
+}
+```

@@ -3,7 +3,10 @@ package food_ordering_system.controller;
 import food_ordering_system.dto.CategoryDto;
 import food_ordering_system.response.Response;
 import food_ordering_system.service.CategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// Handles all incoming HTTP requests for the Category resource.
+// Delegates business logic to CategoryService.
+@Tag(name = "Categories", description = "Category management endpoints")
 @RestController
 @RequestMapping("/api/categories")
+@RequiredArgsConstructor
 public class CategoryController {
 
     private final CategoryService categoryService;
 
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-
+    @Operation(summary = "Get all categories")
     @GetMapping
     public ResponseEntity<Response<List<CategoryDto>>> getAllCategories() {
         List<CategoryDto> categories = categoryService.getAllCategories();
@@ -29,6 +33,7 @@ public class CategoryController {
         );
     }
 
+    @Operation(summary = "Get category by ID")
     @GetMapping("/{id}")
     public ResponseEntity<Response<CategoryDto>> getCategoryById(
             @PathVariable Long id) {
@@ -38,6 +43,7 @@ public class CategoryController {
         );
     }
 
+    @Operation(summary = "Create a category", description = "ADMIN only")
     @PostMapping
     public ResponseEntity<Response<CategoryDto>> addCategory(
             @RequestBody @Valid CategoryDto dto) {
@@ -52,6 +58,7 @@ public class CategoryController {
         );
     }
 
+    @Operation(summary = "Update a category", description = "ADMIN only")
     @PutMapping("/{id}")
     public ResponseEntity<Response<CategoryDto>> updateCategory(
             @PathVariable Long id,
@@ -62,6 +69,7 @@ public class CategoryController {
         );
     }
 
+    @Operation(summary = "Delete a category", description = "ADMIN only")
     @DeleteMapping("/{id}")
     public ResponseEntity<Response<Void>> deleteCategory(
             @PathVariable Long id) {
